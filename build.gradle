@@ -1,16 +1,6 @@
 plugins {
     id 'fabric-loom' version '1.7-SNAPSHOT'
 }
-    repositories {
-        maven { url = 'https://fabricmc.net' }
-        mavenCentral()
-    }
-    dependencies {
-        classpath 'net.fabricmc.loom:net.fabricmc.loom.gradle.plugin:1.7.4'
-    }
-}
-
-apply plugin: 'fabric-loom'
 base { archivesName = project.archives_base_name }
 
 dependencies {
