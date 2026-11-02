@@ -1,15 +1,18 @@
 pluginManagement {
     repositories {
         maven {
-            name = 'Fabric Plugins'
+            name = 'Fabric'
             url = 'https://fabricmc.net'
-        }
-        maven {
-            name = 'Architectury'
-            url = 'https://architectury.dev'
         }
         gradlePluginPortal()
         mavenCentral()
+    }
+    resolutionStrategy {
+        eachPlugin {
+            if (requested.id.id == 'fabric-loom') {
+                useModule("net.fabricmc:fabric-loom:${requested.version}")
+            }
+        }
     }
 }
 
