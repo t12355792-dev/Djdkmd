@@ -20,28 +20,26 @@ jobs:
         java-version: '21'
         distribution: 'temurin'
 
+    # Этот шаг теперь сам скачает правильный Gradle, проигнорировав сломанный wrapper
     - name: Setup Gradle
       uses: gradle/actions/setup-gradle@v4
+      with:
+        gradle-version: '8.10'
 
-    # Этот шаг автоматически найдет папку, где лежит gradlew, и сохранит её путь
     - name: Find Project Root
       id: find-root
       run: |
-        ROOT_DIR=$(find . -name "gradlew" -exec dirname {} \; | head -n 1)
+        ROOT_DIR=$(find . -name "build.gradle" -exec dirname {} \; | head -n 1)
         if [ -z "$ROOT_DIR" ]; then
-          echo "Error: gradlew not found anywhere in the repository!"
+          echo "Error: build.gradle not found!"
           exit 1
         fi
         echo "project_dir=$ROOT_DIR" >> $GITHUB_OUTPUT
-        echo "Found project root at: $ROOT_DIR"
 
-    - name: Make gradlew executable
-      working-directory: ${{ steps.find-root.outputs.project_dir }}
-      run: chmod +x gradlew
-
+    # Вместо ./gradlew мы используем глобально установленный gradle
     - name: Build with Gradle
       working-directory: ${{ steps.find-root.outputs.project_dir }}
-      run: ./gradlew build
+      run: gradle build
 
     - name: Upload Build Artifacts
       uses: actions/upload-artifact@v4
