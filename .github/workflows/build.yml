@@ -42,7 +42,7 @@ jobs:
 
     - name: Build with Gradle
       working-directory: ${{ steps.find-root.outputs.project_dir }}
-      run: ./gradlew build
+      run: gradlew build
 
     - name: Upload Build Artifacts
       uses: actions/upload-artifact@v4
