@@ -36,10 +36,10 @@ jobs:
         fi
         echo "project_dir=$ROOT_DIR" >> $GITHUB_OUTPUT
 
-    # Вместо ./gradlew мы используем глобально установленный gradle
+    # Вместо gradle build запускаем локальный gradlew, который подтянет settings.gradle
     - name: Build with Gradle
       working-directory: ${{ steps.find-root.outputs.project_dir }}
-      run: gradle build
+      run: ./gradlew build
 
     - name: Upload Build Artifacts
       uses: actions/upload-artifact@v4
