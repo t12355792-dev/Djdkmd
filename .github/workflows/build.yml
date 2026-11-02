@@ -20,7 +20,6 @@ jobs:
         java-version: '21'
         distribution: 'temurin'
 
-    # Этот шаг теперь сам скачает правильный Gradle, проигнорировав сломанный wrapper
     - name: Setup Gradle
       uses: gradle/actions/setup-gradle@v4
       with:
@@ -36,7 +35,11 @@ jobs:
         fi
         echo "project_dir=$ROOT_DIR" >> $GITHUB_OUTPUT
 
-    # Вместо gradle build запускаем локальный gradlew, который подтянет settings.gradle
+    # ЭТОТ ШАГ ИСПРАВЛЯЕТ ОШИБКУ: Даем права на запуск gradlew
+    - name: Make gradlew executable
+      working-directory: ${{ steps.find-root.outputs.project_dir }}
+      run: chmod +x gradlew
+
     - name: Build with Gradle
       working-directory: ${{ steps.find-root.outputs.project_dir }}
       run: ./gradlew build
