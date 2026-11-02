@@ -35,14 +35,9 @@ jobs:
         fi
         echo "project_dir=$ROOT_DIR" >> $GITHUB_OUTPUT
 
-    # ЭТОТ ШАГ ИСПРАВЛЯЕТ ОШИБКУ: Даем права на запуск gradlew
-    - name: Make gradlew executable
-      working-directory: ${{ steps.find-root.outputs.project_dir }}
-      run: chmod +x gradlew
-
     - name: Build with Gradle
       working-directory: ${{ steps.find-root.outputs.project_dir }}
-      run: gradlew build
+      run: gradle build
 
     - name: Upload Build Artifacts
       uses: actions/upload-artifact@v4
