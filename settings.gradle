@@ -1,13 +1,1 @@
-pluginManagement {
-    repositories {
-        maven { url = 'https://fabricmc.net' }
-        gradlePluginPortal()
-        mavenCentral()
-    }
-}
-
-plugins {
-    id 'fabric-loom' version '1.7.4'
-}
-
 rootProject.name = 'havenmod'
