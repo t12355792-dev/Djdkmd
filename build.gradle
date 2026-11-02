@@ -1,16 +1,6 @@
-buildscript {
-    repositories {
-        maven { url = 'https://fabricmc.net' }
-        gradlePluginPortal()
-        mavenCentral()
-    }
-    dependencies {
-        classpath 'net.fabricmc.loom:net.fabricmc.loom.gradle.plugin:1.7.4'
-    }
+plugins {
+    id 'fabric-loom' version '1.7.4'
 }
-
-apply plugin: 'fabric-loom'
-base { archivesName = project.archives_base_name }
 
 dependencies {
     minecraft "com.mojang:minecraft:${project.minecraft_version}"
